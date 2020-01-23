@@ -1,10 +1,14 @@
 #include "Level.h"
 
+
 Level::Level(sf::RenderWindow* hwnd, Input* in)
 {
 	window = hwnd;
 	input = in;
 
+	text.setFont(font);
+	text.setCharacterSize(32);
+	text.setFillColor(sf::Color::Black);
 	// initialise game objects
 
 }
@@ -17,6 +21,16 @@ Level::~Level()
 // handle user input
 void Level::handleInput()
 {
+	sf::Vector2i mousePos;
+	mousePos = mouse.getPosition();
+
+	std::string outTextX = std::to_string(mousePos.x);
+	std::string outTextY = std::to_string(mousePos.y);
+
+	std::string outText = ("x=" + outTextX + ", y=" + outTextY);
+
+	text.setString(outText);
+
 	if (input->isKeyDown(sf::Keyboard::W))
 	{
 		input->setKeyUp(sf::Keyboard::W);
@@ -31,6 +45,12 @@ void Level::handleInput()
 	{
 		window->close();
 	}
+
+	if (!font.loadFromFile("font/arial.ttf"))
+	{
+		std::cout << "Error loading font.\n";
+	}
+
 }
 
 // Update game objects
@@ -43,6 +63,8 @@ void Level::update()
 void Level::render()
 {
 	beginDraw();
+
+	window->draw(text);
 
 	endDraw();
 }

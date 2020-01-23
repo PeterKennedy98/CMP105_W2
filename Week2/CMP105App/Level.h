@@ -6,10 +6,15 @@
 #include <iostream>
 
 
+
 class Level{
 public:
 	Level(sf::RenderWindow* hwnd, Input* in);
 	~Level();
+
+	sf::Text text;
+	sf::Font font;
+	sf::Mouse mouse;
 
 	void handleInput();
 	void update();
